@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+import java.util.Scanner;
+
 
 /**
  *
@@ -13,8 +15,8 @@ public class Employee extends Person{
     private int employeeId;
     private String password;
     
-//    private static final String PASSWORD: "test";
-//    private static final int EMPLOYEEID: 123;
+    private final String PASSWORD = "test";
+    private  final int EMPLOYEEID = 123;
 
     public Employee(int employeeId, String password, String name) {
         super(name);
@@ -66,4 +68,12 @@ public class Employee extends Person{
         return "Employee{" + "employee=" + employeeId + ", password=" + password + '}';
     }
     
+    public boolean login (int employeeId, String password){
+        
+        if (employeeId == EMPLOYEEID && password.equals(PASSWORD)){
+            return true;
+        }
+        return true;
+        
+    }
 }
