@@ -31,14 +31,10 @@ public class Shop {
         System.out.println("Ingrese la contraseña del empleado");
         String psw = sc.nextLine();
         
-        Employee emp = new Employee(123, "test", "Mauricio");
-        employees.add(emp);
-        if (emp.login(123, "test")) {
-            System.out.println("Login correcto");
-        } else {
-            System.out.println("Usuario o contraseña incorrectos");
-        }
-
+        Employee emp = new Employee(empId, psw, psw);
+        
+        if (emp.login(empId, psw)){
+        
         Shop shop = new Shop();
         shop.loadInventory();
         Scanner scanner = new Scanner(System.in);
@@ -105,8 +101,8 @@ public class Shop {
                     break;
             }
         } while (!exit);
+    } return;
     }
-
     /**
      * load initial inventory to shop
      */
