@@ -10,7 +10,7 @@ package main;
  */
 public interface Ilogable {
     
-    public abstract boolean login(int user, String password);
+    public boolean login(int user, String password);
     
 
 }
