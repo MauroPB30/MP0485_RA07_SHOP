@@ -4,13 +4,14 @@
  */
 package model;
 import java.util.Scanner;
+import main.Ilogable;
 
 
 /**
  *
  * @author usuario
  */
-public class Employee extends Person{
+public class Employee extends Person implements Ilogable {
     
     private int employeeId;
     private String password;
@@ -71,9 +72,16 @@ public class Employee extends Person{
     public boolean login (int employeeId, String password){
         
         if (employeeId == EMPLOYEEID && password.equals(PASSWORD)){
+            System.out.println("Login correcto");
             return true;
+        }else{
+            System.out.println("Usuario o contraseña incorrectos");
+        return false;
         }
-        return true;
-        
     }
 }
+//        if (emp.login(123, "test")) {
+//            System.out.println("Login correcto");
+//        } else {
+//            System.out.println("Usuario o contraseña incorrectos");
+//        }
