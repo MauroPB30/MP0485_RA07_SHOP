@@ -69,19 +69,17 @@ public class Employee extends Person implements Ilogable {
         return "Employee{" + "employee=" + employeeId + ", password=" + password + '}';
     }
     
+   
     public boolean login (int employeeId, String password){
         
-        if (employeeId == EMPLOYEEID && password.equals(PASSWORD)){
-            System.out.println("Login correcto");
-            return true;
-        }else{
-            System.out.println("Usuario o contraseña incorrectos");
-        return false;
-        }
+        return employeeId == EMPLOYEEID && password.equals(PASSWORD);
+        
+//        if (employeeId == EMPLOYEEID && password.equals(PASSWORD)){
+//            System.out.println("Login correcto");
+//            return true;
+//        }else{
+//            System.out.println("Usuario o contraseña incorrectos");
+//        return false;
+//        }
     }
 }
-//        if (emp.login(123, "test")) {
-//            System.out.println("Login correcto");
-//        } else {
-//            System.out.println("Usuario o contraseña incorrectos");
-//        }
