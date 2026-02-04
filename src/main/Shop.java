@@ -5,6 +5,7 @@ import model.Product;
 import model.Sale;
 import java.util.Scanner;
 import model.Amount;
+import model.Client;
 import model.Employee;
 
 public class Shop {
@@ -25,11 +26,10 @@ public class Shop {
         Scanner sc = new Scanner(System.in);
 
 //        Employee employ = new Employee(0, "", "");
-
         Shop shop = new Shop();
-        shop.loadInventory();
         shop.initSession();
-        
+        shop.loadInventory();
+
         Scanner scanner = new Scanner(System.in);
 
         int opcion = 0;
@@ -210,25 +210,27 @@ public class Shop {
         ArrayList<Product> products = new ArrayList<>();
 
         System.out.println("Realizar venta, escribir nombre cliente");
-        String client = sc.nextLine();
+        String clientName = sc.nextLine();
 
-        // sale product until input name is not 0
+        Client client = new Client(clientName);
         double totalAmount = 0.0;
-        String name = "";
 
-        while (!name.equals("0")) {
+        while (true) {
             System.out.println("Introduce el nombre del producto, escribir 0 para terminar:");
-            name = sc.nextLine();
+            String productName = sc.nextLine();
 
-            if (name.equals("0")) {
+            if (productName.equals("0")) {
                 break;
             }
-            Product product = findProduct(name);
+            Product product = findProduct(productName);
+
             boolean productAvailable = false;
 
             if (product != null && product.isAvailable()) {
-//                productAvailable = true;
+
+                products.add(product);
                 totalAmount += product.getPublicPrice().getValue();
+
                 product.setStock(product.getStock() - 1);
                 // if no more stock, set as not available to sale
                 if (product.getStock() == 0) {
@@ -236,21 +238,28 @@ public class Shop {
                 }
                 System.out.println("Producto a\u00f1adido con exito");
 
-                products.add(product);
-            }
-
-            if (!productAvailable) {
+            } else {
                 System.out.println("Producto no encontrado o sin stock");
             }
         }
 
         // show cost total
-        totalAmount = totalAmount * TAX_RATE;
+        totalAmount *= TAX_RATE;
         Amount totalAmountObj = new Amount(totalAmount);
+        
+        boolean payCheck = client.pay(totalAmountObj);
 
-        sales.add(new Sale(client, cash));
-        cash.setValue(totalAmount);
-        System.out.println("Venta realizada con exito, total: " + totalAmountObj.toString());
+            sales.add(new Sale(client, products, totalAmountObj));
+            cash.setValue(cash.getValue() + totalAmountObj.getValue());
+            
+            System.out.println("Venta realizada con exito, total: " + totalAmountObj);
+            
+        if (payCheck) {
+            System.out.println("Saldo cliente " + client.getBalance());
+        } else {
+            System.out.println("El cliente debe " + client.getBalance());
+        }
+
     }
 
     /**
