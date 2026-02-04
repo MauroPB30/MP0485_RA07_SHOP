@@ -23,20 +23,13 @@ public class Shop {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        
-        System.out.println("Ingrese el ID de empleado");
-        int empId = sc.nextInt();
-        sc.nextLine();
-        
-        System.out.println("Ingrese la contraseña del empleado");
-        String psw = sc.nextLine();
-        
-        Employee emp = new Employee(empId, psw, psw);
-        
-        if (emp.login(empId, psw)){
-        
+
+//        Employee employ = new Employee(0, "", "");
+
         Shop shop = new Shop();
         shop.loadInventory();
+        shop.initSession();
+        
         Scanner scanner = new Scanner(System.in);
 
         int opcion = 0;
@@ -101,8 +94,9 @@ public class Shop {
                     break;
             }
         } while (!exit);
-    } return;
+
     }
+
     /**
      * load initial inventory to shop
      */
@@ -213,15 +207,16 @@ public class Shop {
     public void sale() {
         // ask for client name
         Scanner sc = new Scanner(System.in);
-        Product[] p = new Product[10];
+        ArrayList<Product> products = new ArrayList<>();
+
         System.out.println("Realizar venta, escribir nombre cliente");
         String client = sc.nextLine();
 
         // sale product until input name is not 0
         double totalAmount = 0.0;
         String name = "";
-        int c = 0;
-        while (!name.equals("0") && c != p.length) {
+
+        while (!name.equals("0")) {
             System.out.println("Introduce el nombre del producto, escribir 0 para terminar:");
             name = sc.nextLine();
 
@@ -232,7 +227,7 @@ public class Shop {
             boolean productAvailable = false;
 
             if (product != null && product.isAvailable()) {
-                productAvailable = true;
+//                productAvailable = true;
                 totalAmount += product.getPublicPrice().getValue();
                 product.setStock(product.getStock() - 1);
                 // if no more stock, set as not available to sale
@@ -241,8 +236,7 @@ public class Shop {
                 }
                 System.out.println("Producto a\u00f1adido con exito");
 
-                p[c] = product;
-                c++;
+                products.add(product);
             }
 
             if (!productAvailable) {
@@ -339,5 +333,29 @@ public class Shop {
         } else {
             System.out.println("Producto no existe");
         }
+    }
+
+    public void initSession() {
+
+        Scanner sc = new Scanner(System.in);
+        boolean logged = false;
+
+        do {
+            System.out.println("Ingrese el ID de empleado");
+            int empId = sc.nextInt();
+            sc.nextLine();
+
+            System.out.println("Ingrese la contraseña del empleado");
+            String psw = sc.nextLine();
+// ES RECOMENDABLE USAR UN DO WHILE YA QUE NO ES FUNCIONAL QUE UN METODO SE LLAME A SI MISMO
+            Employee emp = new Employee(empId, psw, psw);
+
+            if (emp.login(empId, psw)) {
+                logged = true;
+                System.out.println("Login correcto");
+            } else {
+                System.out.println("Usuario o contraseña incorrectos");
+            }
+        } while (!logged);
     }
 }
