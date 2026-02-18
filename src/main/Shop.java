@@ -246,18 +246,19 @@ public class Shop {
         // show cost total
         totalAmount *= TAX_RATE;
         Amount totalAmountObj = new Amount(totalAmount);
-        
+
         boolean payCheck = client.pay(totalAmountObj);
 
-            sales.add(new Sale(client, products, totalAmountObj));
-            cash.setValue(cash.getValue() + totalAmountObj.getValue());
-            
-            System.out.println("Venta realizada con exito, total: " + totalAmountObj);
-            
+        sales.add(new Sale(client, products, totalAmountObj));
+
         if (payCheck) {
-            System.out.println("Saldo cliente " + client.getBalance());
+            cash.setValue(cash.getValue() + totalAmountObj.getValue());
+            System.out.println("Venta realizada con exito, total: " + totalAmountObj);
+            System.out.println("Saldo cliente: " + client.getBalance());
         } else {
-            System.out.println("El cliente debe " + client.getBalance());
+            cash.setValue(cash.getValue() + totalAmountObj.getValue());
+            System.out.println("Venta realizada pero cliente con deuda.");
+            System.out.println("Cantidad a deber: " + Math.abs(client.getBalance().getValue()) + " euro");
         }
 
     }
@@ -266,9 +267,11 @@ public class Shop {
      * show all sales
      */
     private void showSales() {
+
         System.out.println("Lista de ventas:");
+
         for (Sale sale : sales) {
-            System.out.println(sales);
+            System.out.println(sale.toString());
         }
     }
 
@@ -324,23 +327,18 @@ public class Shop {
     }
 
     private void deleteProduct() {
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Seleccione el nombre del producto");
-        String prDel = sc.next();
+        String prDel = sc.nextLine();
 
-        Product proDelete = null;
+        Product product = findProduct(prDel);
 
-        for (Product product : inventory) {
-            if (product.getName().equals(prDel)) {
-                proDelete = product;
-                break;
-            }
-        }
-        if (proDelete != null) {
-            inventory.remove(proDelete);
+        if (product != null) {
+            inventory.remove(product);
             System.out.println("Producto eliminado correctamente");
         } else {
-            System.out.println("Producto no existe");
+            System.out.println("Error: Producto no encontrado");
         }
     }
 
@@ -348,7 +346,9 @@ public class Shop {
 
         Scanner sc = new Scanner(System.in);
         boolean logged = false;
+        Employee emp = new Employee(0, "", "test");
 
+// ES RECOMENDABLE USAR UN DO WHILE YA QUE NO ES FUNCIONAL QUE UN METODO SE LLAME A SI MISMO
         do {
             System.out.println("Ingrese el ID de empleado");
             int empId = sc.nextInt();
@@ -356,8 +356,6 @@ public class Shop {
 
             System.out.println("Ingrese la contraseña del empleado");
             String psw = sc.nextLine();
-// ES RECOMENDABLE USAR UN DO WHILE YA QUE NO ES FUNCIONAL QUE UN METODO SE LLAME A SI MISMO
-            Employee emp = new Employee(empId, psw, psw);
 
             if (emp.login(empId, psw)) {
                 logged = true;
