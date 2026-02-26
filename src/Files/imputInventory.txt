@@ -1,0 +1,4 @@
+Product:Manzana;Wholesaler Price:10.00;Stock:10;
+Product:Pera;WholesalerPrice:5.00;Stock:20;
+Product:Hamburguesa;WholesalerPrice:10.00;Stock:30;
+Product:Fresa;WholesalerPrice:3.00;Stock:20;
