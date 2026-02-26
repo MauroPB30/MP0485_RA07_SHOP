@@ -11,7 +11,7 @@ import model.Employee;
 public class Shop {
 
     private Amount cash = new Amount(100.00);
-    private ArrayList<Product> inventory = new ArrayList<>();
+    private static ArrayList<Product> inventory = new ArrayList<>();
     private ArrayList<Sale> sales = new ArrayList<>();
     static ArrayList<Employee> employees = new ArrayList<>();
 
