@@ -7,6 +7,10 @@ import java.util.Scanner;
 import model.Amount;
 import model.Client;
 import model.Employee;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import model.Fichero;
 
 public class Shop {
 
@@ -28,7 +32,7 @@ public class Shop {
 //        Employee employ = new Employee(0, "", "");
         Shop shop = new Shop();
         shop.initSession();
-        shop.loadInventory();
+        shop.loadInventory(inventory);
 
         Scanner scanner = new Scanner(System.in);
 
@@ -100,18 +104,25 @@ public class Shop {
     /**
      * load initial inventory to shop
      */
-    public void loadInventory() {
-        inventory.add(new Product("Manzana", 5.00, true, 10));
-        inventory.add(new Product("Pera", 5.00, true, 20));
-        inventory.add(new Product("Hamburguesa", 10.00, true, 30));
-        inventory.add(new Product("Fresa", 3.00, true, 20));
+//    public void loadInventory() {
+//
+//        inventory.clear();   // evita duplicados si se vuelve a cargar
+//
+//        Fichero.LeerInventario(inventory);
+//
+//        System.out.println("Productos cargados: " + inventory.size());
+//    }
+    public void loadInventory(ArrayList<Product> inventory) {
+
+        Fichero.LeerInventario(inventory);
+
+        System.out.println("Productos cargados: " + inventory.size());
     }
 
     /**
      * show current total cash
      */
     private void showCash() {
-// Solución #1 se agrega el + cash al sout para que muestre el valor.
         System.out.println("Dinero actual: " + cash);
     }
 
@@ -121,11 +132,7 @@ public class Shop {
     public void addProduct() {
 
         Scanner sc = new Scanner(System.in);
-//        if (isInventoryFull()) {
-//            System.out.println("No se pueden a\u00f1adir mas productos");
-//            return;
-//        }
-//        Scanner scanner = new Scanner(System.in);
+
         System.out.print("Nombre: ");
         String name = sc.nextLine();
 
@@ -192,12 +199,17 @@ public class Shop {
      * show all inventory
      */
     public void showInventory() {
-        System.out.println("Contenido actual de la tienda:");
-        for (Product product : inventory) {
-            if (product != null) {
-//VALIDAR ESTA LINEA SI VA DENTRO DEL IF O NO
-                System.out.println(product.toString());
-            }
+
+        if (inventory.isEmpty()) {
+            System.out.println("Inventario vacío.");
+            return;
+        }
+        
+        System.out.println("\n");
+        System.out.println("Inventario actual:");
+        System.out.println("\n");
+        for (Product p : inventory) {
+            System.out.println(p.getName()+"| "+ p.getWholesalerPrice()+"| "+ p.getStock());
         }
     }
 
