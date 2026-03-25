@@ -122,7 +122,7 @@ public class Shop {
     /**
      * show current total cash
      */
-    private void showCash() {
+    public void showCash() {
         System.out.println("Dinero actual: " + cash);
     }
 
@@ -279,12 +279,21 @@ public class Shop {
      * show all sales
      */
     private void showSales() {
-
+        Scanner sc = new Scanner(System.in);
+        
         System.out.println("Lista de ventas:");
 
         for (Sale sale : sales) {
             System.out.println(sale.toString());
         }
+        
+        System.out.println("Quieres exportar las ventas");
+        String answer = sc.nextLine();
+        
+        if (answer.equalsIgnoreCase("Si")){
+            Fichero.EscribirInventario(sales);
+        } 
+
     }
 
     public void showTotalSales() {
@@ -377,4 +386,9 @@ public class Shop {
             }
         } while (!logged);
     }
+    
+    public Amount getCash(){
+        return cash;
+    }
+           
 }
