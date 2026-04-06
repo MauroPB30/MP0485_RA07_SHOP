@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import main.Shop;
 import model.Employee;
 import model.Person;
+import Exception.LimitLoginException;
 
 /**
  *
@@ -16,6 +17,8 @@ import model.Person;
 public class LoginView extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginView.class.getName());
+    private int attempts = 0;
+    private final int MAX_ATTEMPTS = 3;
 
     /**
      * Creates new form Login
@@ -135,6 +138,8 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+    try {
+
         String name = Name_Emp_wr.getText();
         int user = (int) Id_Emp_wr.getValue();
         String pws = Pw_Empl_wr.getText();
@@ -142,14 +147,37 @@ public class LoginView extends javax.swing.JFrame {
         Employee emp = new Employee(user, pws, name);
 
         if (emp.login(user, pws)) {
+
             JOptionPane.showMessageDialog(this, "Login correcto");
 
             new ShopView().setVisible(true);
             this.dispose();
+
         } else {
+
+            attempts++;
+
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
+
+            // Limpiar campos
+            Name_Emp_wr.setText("");
+            Pw_Empl_wr.setText("");
+            Id_Emp_wr.setValue(0);
+
+            if (attempts >= MAX_ATTEMPTS) {
+                throw new LimitLoginException("Se ha alcanzado el número máximo intentos");
+            }
         }
 
+    } catch (LimitLoginException e) {
+
+        JOptionPane.showMessageDialog(this, e.getMessage());
+        System.exit(0); 
+
+    } catch (Exception e) {
+
+        JOptionPane.showMessageDialog(this, "Error en los datos");
+    }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
