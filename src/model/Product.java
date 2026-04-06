@@ -29,8 +29,18 @@ public class Product {
     }
 
     Product(String name, Amount wholesalesPrice, int stock) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+
+    this.id = totalProducts + 1;
+    this.name = name;
+    this.wholesalerPrice = wholesalesPrice;
+
+    this.publicPrice = new Amount(wholesalesPrice.getValue() * 2);
+
+    this.available = true;
+    this.stock = stock;
+
+    totalProducts++;
+}
 
     @Override
     public String toString() {
