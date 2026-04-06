@@ -4,24 +4,33 @@
  */
 package view;
 
+import java.awt.event.*;
+import javax.swing.*;
 import main.Shop;
 
 /**
  *
  * @author usuario
  */
-public class ShopView extends javax.swing.JFrame {
+public class ShopView extends javax.swing.JFrame implements ActionListener, KeyListener {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ShopView.class.getName());
     
     private Shop shop;
+    
+    private JButton btnCash;
+    private JButton btnAddProduct;
+    private JButton btnAddStock;
+    private JButton btnDeleteProduct;
     /**
      * Creates new form Menu
      */
     public ShopView() {
+        
         initComponents();
         
         shop = new Shop();
+//        shop.loadInventory(inventory);
         
     }
 
@@ -116,19 +125,27 @@ public class ShopView extends javax.swing.JFrame {
     CashView cv = new CashView(this, true, shop);
     cv.setLocationRelativeTo(this);
     cv.setVisible(true);
-
+//    this.dispose();
     }//GEN-LAST:event_count_buttonActionPerformed
 
     private void addPr_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPr_buttonActionPerformed
         // TODO add your handling code here:
+    ProductView pv = new ProductView(this, true, shop, 2); // "add" indica acción
+    pv.setLocationRelativeTo(this);
+    pv.setVisible(true);     
     }//GEN-LAST:event_addPr_buttonActionPerformed
 
     private void addSt_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSt_buttonActionPerformed
-        // TODO add your handling code here:
+    ProductView pv = new ProductView(this, true, shop, 3); // "stock" indica acción
+    pv.setLocationRelativeTo(this);
+    pv.setVisible(true);    // TODO add your handling code here:
     }//GEN-LAST:event_addSt_buttonActionPerformed
 
     private void deletePr_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePr_buttonActionPerformed
         // TODO add your handling code here:
+    ProductView pv = new ProductView(this, true, shop, 9); // "delete" indica acción
+    pv.setLocationRelativeTo(this);
+    pv.setVisible(true);
     }//GEN-LAST:event_deletePr_buttonActionPerformed
 
     /**
@@ -163,4 +180,24 @@ public class ShopView extends javax.swing.JFrame {
     private javax.swing.JButton deletePr_button;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
