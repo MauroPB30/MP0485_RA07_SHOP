@@ -124,10 +124,10 @@ public class CashView extends javax.swing.JDialog {
             public void run() {
                 CashView dialog = new CashView(new javax.swing.JFrame(), true, new Shop());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
                 });
                 dialog.setVisible(true);
             }

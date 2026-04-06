@@ -27,10 +27,8 @@
               <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="cerrarBt" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel1" max="32767" attributes="0"/>
-                      <Component id="txtCash" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel1" max="32767" attributes="0"/>
+                  <Component id="txtCash" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="78" max="32767" attributes="0"/>
           </Group>
