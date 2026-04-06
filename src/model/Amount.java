@@ -14,7 +14,7 @@ public class Amount {
 
     public Amount(double value) {
         this.value = value;
-        this.currency = "euro"; 
+        this.currency = "Euros"; 
     }
 
 
