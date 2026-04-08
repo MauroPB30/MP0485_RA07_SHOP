@@ -23,7 +23,7 @@ public class Shop {
         inventory = new ArrayList<>();
         sales = new ArrayList<>();
         Fichero.LeerInventario(inventory);
-        
+
     }
 
     public static void main(String[] args) {
@@ -90,7 +90,7 @@ public class Shop {
     }
 
     public void loadInventory(ArrayList<Product> inventory) {
-        Fichero.LeerInventario(inventory);
+//        Fichero.LeerInventario(inventory);
         System.out.println("Productos cargados: " + inventory.size());
     }
 
@@ -98,7 +98,6 @@ public class Shop {
         System.out.println("Dinero actual: " + cash);
     }
 
-    
     public void addProduct() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nombre: ");
@@ -199,7 +198,25 @@ public class Shop {
                 System.out.println("Producto no encontrado o sin stock");
             }
         }
+        totalAmount *= TAX_RATE;
+        Amount totalAmountObj = new Amount(totalAmount);
+
+        boolean payCheck = client.pay(totalAmountObj);
+
+        sales.add(new Sale(client, products, totalAmountObj));
+
+        if (payCheck) {
+            cash.setValue(cash.getValue() + totalAmountObj.getValue());
+            System.out.println("Venta realizada con exito, total: " + totalAmountObj);
+            System.out.println("Saldo cliente: " + client.getBalance());
+        } else {
+            cash.setValue(cash.getValue() + totalAmountObj.getValue());
+            System.out.println("Venta realizada pero cliente con deuda.");
+            System.out.println("Cantidad a deber: " + Math.abs(client.getBalance().getValue()) + " euro");
+        }
+
     }
+
     private void showSales() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Lista de ventas:");
